@@ -18,25 +18,27 @@ public class MainActivity extends AppCompatActivity {
     public void fabClick(View v) {
         DBHandler db = new DBHandler(this);
         db.addProduct(new Product(0, "", 0, "kg"));
-        list = db.getAllProducts();
-        adapter = new RecycleViewAdapter(list);
+        adapter = new RecycleViewAdapter(db);
         rv.setAdapter(adapter);
 
     }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyPreferenceActivity mf = new MyPreferenceActivity();
+       // mf.startPreferenceFragment();
         DBHandler db = new DBHandler(this);
-        list = db.getAllProducts();
-        for(int i = 0; i < db.getProductsNumber(); i ++ )
-            db.deleteProduct(list.get(i));
+       // list = db.getAllProducts();
+      //  int count = db.getProductsNumber();
+      //  for(int i = 0; i < count; i ++ )
+      //      db.deleteProduct(list.get(i));
         list = db.getAllProducts();
 
         rv = (RecyclerView) findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         rv.setLayoutManager(layoutManager);
-        adapter = new RecycleViewAdapter(list);
+        adapter = new RecycleViewAdapter(db);
         rv.setAdapter(adapter);
 
         FloatingActionButton myFab = (FloatingActionButton) findViewById(R.id.fab);

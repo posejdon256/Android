@@ -2,19 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/tvId"/>
     <EditText
         android:layout_width="0dip"
         android:layout_height="40dp"
         android:id="@+id/name"
-        android:layout_weight="0.3"/>
+        android:layout_weight="0.25"/>
     <EditText
         android:layout_width="0dip"
         android:layout_height="40dp"
         android:id="@+id/weight"
-        android:layout_weight="0.3"/>
+        android:layout_weight="0.25"/>
     <EditText
         android:layout_width="0dip"
         android:layout_height="40dp"
         android:id="@+id/unit"
-        android:layout_weight="0.3"/>
+        android:layout_weight="0.25"/>
+
+    <ImageButton
+        android:id="@+id/delButton"
+        android:layout_width="0dip"
+        android:layout_height="40dp"
+        android:layout_weight="0.25"
+        android:src="@android:drawable/ic_delete" />
 </LinearLayout>
