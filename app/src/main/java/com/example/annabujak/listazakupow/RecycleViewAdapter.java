@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,14 +22,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.support_simple_spinner_dropdown_item, parent, false);
+                .inflate(R.layout.recycle_viewer, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecycleViewAdapter.ViewHolder holder, int position) {
-        holder.textView.setText(productsList.get(position).getName());
+        holder.name.setText(productsList.get(position).getName());
+        holder.weight.setText(Integer.toString(productsList.get(position).getCount()));
+        holder.unit.setText(productsList.get(position).getUnit());
     }
 
     @Override
@@ -37,13 +40,17 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView textView;
+        public EditText name;
+        public EditText weight;
+        public EditText unit;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View view) {
 
-            super(itemView);
+            super(view);
 
-            textView = (TextView) itemView;
+            name = (EditText) view.findViewById(R.id.name);
+            weight = (EditText) view.findViewById(R.id.weight);
+            unit = (EditText) view.findViewById(R.id.unit);
 
         }
 
