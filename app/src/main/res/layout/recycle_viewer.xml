@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_blue_dark" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
     <TextView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -10,22 +20,27 @@
         android:layout_width="0dip"
         android:layout_height="40dp"
         android:id="@+id/name"
-        android:layout_weight="0.25"/>
+        android:textSize="15dp"
+        android:layout_weight="0.30"/>
     <EditText
         android:layout_width="0dip"
         android:layout_height="40dp"
+        android:textSize="15dp"
         android:id="@+id/weight"
-        android:layout_weight="0.25"/>
+        android:layout_weight="0.30"/>
     <EditText
         android:layout_width="0dip"
         android:layout_height="40dp"
+        android:textSize="15dp"
         android:id="@+id/unit"
-        android:layout_weight="0.25"/>
+        android:layout_weight="0.30"/>
 
     <ImageButton
         android:id="@+id/delButton"
         android:layout_width="0dip"
         android:layout_height="40dp"
-        android:layout_weight="0.25"
-        android:src="@android:drawable/ic_delete" />
+        android:layout_weight="0.10"
+        android:src="@android:drawable/ic_delete"
+        android:background="@android:color/transparent"/>
+</LinearLayout>
 </LinearLayout>
