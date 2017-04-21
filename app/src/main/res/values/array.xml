@@ -1,7 +1,7 @@
 <resources>
     <string-array name="listArray">
+        <item>Bialy</item>
         <item>Niebieski</item>
-        <item>Czarny</item>
     </string-array>
 
     <string-array name="listValues">
