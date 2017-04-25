@@ -1,9 +1,11 @@
 package com.example.annabujak.listazakupow;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebViewFragment;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -23,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView rv;
     private RecyclerView.Adapter adapter;
     private LinearLayoutManager layoutManager;
+    private FrameLayout frame;
     private List<Product> list;
     private SharedPreferences settings;
+    private ConstraintLayout mainContainer;
     public void fabClick(View v) {
         DBHandler db = new DBHandler(this);
         db.addProduct(new Product(0, "", 0, "kg"));
@@ -38,6 +44,19 @@ public class MainActivity extends AppCompatActivity {
        // mf.startPreferenceFragment();
         DBHandler db = new DBHandler(this);
         list = db.getAllProducts();
+
+
+
+        FragmentSettings f1 = new FragmentSettings();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragmentSettings, f1); // f1_container is your FrameLayout container
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();
+
+        frame = (FrameLayout) findViewById(R.id.fragmentSettings);
+        mainContainer = (ConstraintLayout)findViewById(R.id.mainContaier);
+        frame.setVisibility(View.INVISIBLE);
 
         rv = (RecyclerView) findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
@@ -65,6 +84,16 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -72,15 +101,15 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_name) {
-            Intent i = new Intent(this, MyPreferencesActivity.class);
-            startActivity(i);
+
+            frame.setVisibility(View.VISIBLE);
+            mainContainer.setVisibility(View.INVISIBLE);
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    protected void onResume() {
-        String s = settings.getString("kolor","1");
+    public void onBackPressed() {
+       String s = settings.getString("kolor","1");
         if(new String("1").equals(s)){
             LinearLayout rL = (LinearLayout) findViewById(R.id.setColor);
             rL.setBackgroundColor(Color.parseColor("#FFFFFF"));
@@ -89,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
             LinearLayout rL = (LinearLayout) findViewById(R.id.setColor);
             rL.setBackgroundColor(Color.parseColor("#3F51B5"));
         }
+        frame.setVisibility(View.INVISIBLE);
+        mainContainer.setVisibility(View.VISIBLE);
         super.onResume();
     }
 
